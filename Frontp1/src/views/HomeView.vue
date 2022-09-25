@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Bienvenido a la página de Métodos Numéricos"/>
+    <HelloWorld msg=""/>
   </div>
 </template>
 

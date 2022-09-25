@@ -27,18 +27,15 @@ export default Vue.extend({
   },
   methods: {
     answer() {
-      const headers = {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': '*',
-          'Access-Control-Allow-Credentials': true,
-          'Content-Type': 'application/json',
-        }
-      axios.post(
-        'http://52.204.153.196/records/update',
-        {value: this.$data.value,
-        key: parseInt(this.$data.key),},
-        { headers })
-        .then(response => (this.respuesta = response.data));
+      fetch("http://52.204.153.196/update", {
+        method: "PUT", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.$data), // body data type must match "Content-Type" header
+      }).then((data) =>data.json()).then((data)=>{console.log(data)});
     }
   }
 })

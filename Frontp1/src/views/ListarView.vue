@@ -1,31 +1,15 @@
 <template>
   <div class="Listar">
-    <h1>Crear</h1>
+    <h1>listar</h1>
     <router-link to="/" tag="button"
       >volver</router-link
     >
-    <p>Key: {{ key }}</p>
-    <input type="text" v-model="key" placeholder="" />
-    <p>Value: {{ value }}</p>
-    <input type="text" v-model="value" placeholder="" />
-    <p></p>
-    <button v-on:click="answer">Guardar</button>
-    <div v-if="respuesta">
-    <div>
-      <p>Pasos</p>
-      <ul>
-        <li v-for="paso in respuesta['pasos']" :key="paso">
-        {{ paso }}
-        </li>
-      </ul>
-    </div>
-    <p>Respuesta: {{ respuesta['response'] }}</p>
-    </div>
+    <button v-on:click="answer">listar</button>
+    
   </div>
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -38,18 +22,15 @@ export default Vue.extend({
   },
   methods: {
     answer() {
-      const headers = {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': '*',
-          'Access-Control-Allow-Credentials': true,
-          'Content-Type': 'application/json',
-        }
-      axios.post(
-        'http://52.204.153.196/records/getall',
-        {value: this.$data.value,
-        key: this.$data.key,},
-        { headers })
-        .then(response => (this.respuesta = response.data));
+      fetch("http://52.204.153.196/getall", {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+       // body: JSON.stringify(this.$data), // body data type must match "Content-Type" header
+      }).then((data) =>data.json()).then((data)=>{console.log(data)});
     }
   }
 })
